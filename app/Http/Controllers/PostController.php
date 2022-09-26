@@ -9,48 +9,51 @@ use Illuminate\Support\Facades\Http;
 
 class PostController extends Controller
 {
-    public function add(){
+    public function add()
+    {
         return view('addLink');
     }
-    public function saveLink(Request $request){
+    public function saveLink(Request $request)
+    {
         $response = Http::withToken($request->token)
-        ->get(
-            $request->link.'/wp-json/wp/v2/categories?mo_rest_api_test_config=jwt_auth'
-        );
+            ->get(
+                $request->link . '/wp-json/wp/v2/categories?mo_rest_api_test_config=jwt_auth&per_page=100'
+            );
         $token = $request->token;
         $link = $request->link;
-        $response = json_decode( $response);
-        
-        return view('add',compact('response','token','link'));
-        
+        $response = json_decode($response);
+
+        return view('add', compact('response', 'token', 'link'));
     }
-    
+
     public function saveAdd(Request $request)
     {
-
-        $title = $request->title -1;
-        $content = $request->content -1;
+        // dd($request->all());
+        $title = $request->title - 1;
+        $content = $request->content - 1;
         $data = Excel::toArray([], $request->file('file'));
+
+        // dd($data);
+
         foreach ($data as $item) {
-            foreach ($item as $ite){
 
-                $response = Http::withToken($request->token)
-                ->post(
-                    $request->link.'/wp-json/wp/v2/posts?mo_rest_api_test_config=jwt_auth',
-                    [   
-                        
-                        'title'=>  $item[0][$title],
-                        'content'=>$item[0][$content],
-                        'categories'=>$request->category,
+            foreach ($item as $index => $ite) {
+                if ($index >= 1) {
+                    $response = Http::withToken($request->token)
+                        ->post(
+                            $request->link . '/wp-json/wp/v2/posts?mo_rest_api_test_config=jwt_auth',
+                            [
 
-                    ]
-                );
-            //      echo $item[0][0];
-            //  echo $item[0][1];
+                                'title' =>  $item[$index][$title],
+                                'content' => $item[$index][$content],
+                                // 'categories' => 1,
+                                'categories'=>$request->category,
+
+                            ]
+                        );
+                }
             }
-            
         }
-        return redirect()->route('addLink')->with('msg','Thêm Thành Công');
+        return redirect()->route('addLink')->with('msg', 'Thêm Thành Công');
     }
-  
 }

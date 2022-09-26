@@ -26,18 +26,15 @@
                     <input type="file" name="file" class="custom-file-input" id="customFile" >
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none">
                     <label for="">Link</label>
                     <input type="text" value="{{$link}}" name="link" class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none">
                     <label for="" class="">Token</label>
                     <input type="text" value="{{$token}}" name="token" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="" class="">tok</label>
-                    <input type="text" value="{{$token}}" name="toke" class="form-control">
-                </div>
+             
                 <div class="form-group">
                     <label for="" class="">Cột title trong excel</label>
                     <input type="number" value="" name="title" class="form-control">
@@ -61,12 +58,10 @@
                 </div>
             </div>
 
-            <button   class=" btn btn-primary">Import Users</button>
+            <button   class=" btn btn-primary">OK</button>
             
         </form>
-        <button id="but" type="button" 
-        {{-- onclick="myFunction()" --}}
-        >Insert option</button>
+       
     </div>
 </body>
 
