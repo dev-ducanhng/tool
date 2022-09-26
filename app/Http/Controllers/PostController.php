@@ -28,12 +28,12 @@ class PostController extends Controller
 
     public function saveAdd(Request $request)
     {
-        // dd($request->all());
+        set_time_limit(10000);
         $title = $request->title - 1;
         $content = $request->content - 1;
         $data = Excel::toArray([], $request->file('file'));
 
-        // dd($data);
+       
 
         foreach ($data as $item) {
 
@@ -46,7 +46,7 @@ class PostController extends Controller
 
                                 'title' =>  $item[$index][$title],
                                 'content' => $item[$index][$content],
-                                // 'categories' => 1,
+                                
                                 'categories'=>$request->category,
 
                             ]

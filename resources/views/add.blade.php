@@ -23,12 +23,12 @@
             @csrf
             <div class="form-group mb-4">
                 <div class="custom-file text-left">
-                    <input type="file" name="file" class="custom-file-input" id="customFile" >
+                    <input type="file" name="file" class="custom-file-input" id="customFile" required>
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
                 <div class="form-group d-none">
                     <label for="">Link</label>
-                    <input type="text" value="{{$link}}" name="link" class="form-control">
+                    <input type="text" value="{{$link}}" name="link" class="form-control" required>
                 </div>
                 <div class="form-group d-none">
                     <label for="" class="">Token</label>
@@ -46,9 +46,7 @@
                 <div class="form-check">
                     <label for="">Danh Mục</label><br>
                     <div class=" text-left">
-                        {{-- <input type="checkbox" class="form-check-input"  name="category[]" value="1111111111111"> --}}
                          @foreach ($response as $item)
-                    
                         <input type="checkbox" class="form-check-input"  name="category[]" value="{{$item->id}}">
                      <label class="form-check-label" for="vehicle1"> {{$item->name}}</label><br>
                     @endforeach
