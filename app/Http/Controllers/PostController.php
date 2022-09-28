@@ -15,15 +15,15 @@ class PostController extends Controller
     }
     public function saveLink(Request $request)
     {
-        $response = Http::withToken($request->token)
+        $model = Http::withToken($request->token)
             ->get(
                 $request->link . '/wp-json/wp/v2/categories?mo_rest_api_test_config=jwt_auth&per_page=100'
             );
         $token = $request->token;
         $link = $request->link;
-        $response = json_decode($response);
+        $model = json_decode($model);
 
-        return view('add', compact('response', 'token', 'link'));
+        return view('add', compact('model', 'token', 'link'));
     }
 
     public function saveAdd(Request $request)
@@ -54,6 +54,15 @@ class PostController extends Controller
                 }
             }
         }
-        return redirect()->route('addLink')->with('msg', 'Thêm Thành Công');
+        $model = Http::withToken($request->token)
+            ->get(
+                $request->link . '/wp-json/wp/v2/categories?mo_rest_api_test_config=jwt_auth&per_page=100'
+            );
+        $token = $request->token;
+        $link = $request->link;
+        $model = json_decode($model);
+
+        return view('add', compact('model', 'token', 'link'));
+       
     }
 }

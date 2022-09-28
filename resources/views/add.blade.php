@@ -46,7 +46,7 @@
                 <div class="form-check">
                     <label for="">Danh Mục</label><br>
                     <div class=" text-left">
-                         @foreach ($response as $item)
+                         @foreach ($model as $item)
                         <input type="checkbox" class="form-check-input"  name="category[]" value="{{$item->id}}">
                      <label class="form-check-label" for="vehicle1"> {{$item->name}}</label><br>
                     @endforeach
